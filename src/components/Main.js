@@ -102,8 +102,8 @@ export default function Main() {
         <h2>
           Roll Counts : {rollCount}
           <span> ( Best : {bestRollCount} )</span>
-          <br />
-          <br />
+        </h2>
+        <h2>
           Time : {gameWon ? totalTime : count} sec
           <span> ( Best : {bestTime} )</span>
         </h2>

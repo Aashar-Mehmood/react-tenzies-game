@@ -21,6 +21,11 @@ main .container {
   align-items: center;
 }
 
+.container > h2 {
+  margin-bottom: 0;
+  text-align: center;
+}
+
 .container span {
   color: rgb(0, 151, 0);
 }
@@ -76,6 +81,9 @@ section {
   main .container {
     padding: 20px 0;
   }
+  .container span {
+    display: block;
+  }
 }
 
 @media screen and (max-width: 425px) {
@@ -83,7 +91,7 @@ section {
     margin: 0;
     padding: 25px;
   }
-  .container h2 {
+  .container > h2 {
     margin: 0;
   }
 }

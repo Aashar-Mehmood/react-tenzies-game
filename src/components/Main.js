@@ -7,7 +7,15 @@ import Die from "./Die";
 export default function Main() {
   const [diceArray, setDiceArray] = useState(allNewDice());
   const [gameWon, setGameWon] = useState(false);
+
+  const [bestRollCount, setBestRollCount] = useState(
+    localStorage.getItem("bestRollCount") || 50
+  );
   const [rollCount, setRollCount] = useState(0);
+
+  const [bestTime, setBestTime] = useState(
+    localStorage.getItem("bestTime") || 500
+  );
 
   const [startCount, setStartCount] = useState(false);
   const [count, setCount] = useState(0);
@@ -66,6 +74,19 @@ export default function Main() {
     }
   }, [diceArray]);
 
+  useEffect(() => {
+    if (gameWon) {
+      if (rollCount < Number(bestRollCount)) {
+        setBestRollCount(rollCount);
+        localStorage.setItem("bestRollCount", rollCount);
+      }
+      if (totalTime < Number(bestTime)) {
+        setBestTime(totalTime);
+        localStorage.setItem("bestTime", totalTime);
+      }
+    }
+  }, [gameWon]);
+
   function resetDice() {
     setCount(0);
     setStartCount(false);
@@ -80,9 +101,11 @@ export default function Main() {
       <div className="container">
         <h2>
           Roll Counts : {rollCount}
+          <span> ( Best : {bestRollCount} )</span>
           <br />
           <br />
-          Time : {gameWon ? totalTime : count} (sec)
+          Time : {gameWon ? totalTime : count} sec
+          <span> ( Best : {bestTime} )</span>
         </h2>
         <Guide />
         <div className="die_container">

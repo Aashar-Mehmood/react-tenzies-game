@@ -22,13 +22,13 @@ main .container {
 }
 
 .die_container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: 60px 60px;
-  grid-gap: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .die {
+  margin: 15px;
   width: 60px;
   height: 60px;
   border-radius: 6px;
@@ -55,4 +55,22 @@ main .container {
 
 .roll_dice:active {
   box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}
+
+@media screen and (max-width: 410px) {
+  main .container {
+    padding: 0;
+  }
+}
+@media screen and (max-width: 380px) {
+  .die {
+    margin: 8px;
+  }
+}
+@media screen and (max-width: 324px) {
+  .die {
+    width: 50px;
+    height: 50px;
+    margin: 8px;
+  }
 }

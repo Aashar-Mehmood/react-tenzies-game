@@ -3,7 +3,7 @@
 }
 main {
   max-width: 600px;
-  height: 600px;
+  height: 700px;
   margin: 40px auto;
   padding: 50px 40px;
   background-color: rgb(29, 29, 29);
@@ -56,6 +56,7 @@ section {
   padding: 14px 45px;
   border-radius: 6px;
   cursor: pointer;
+  margin: 20px 0;
 }
 
 .roll_dice:active {
@@ -63,9 +64,6 @@ section {
 }
 
 @media screen and (max-width: 520px) {
-  main {
-    height: 720px;
-  }
   main .container {
     padding: 20px 0;
   }

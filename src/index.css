@@ -63,6 +63,11 @@ section {
   box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
 }
 
+@media screen and (max-width: 590px) {
+  main {
+    height: 900px;
+  }
+}
 @media screen and (max-width: 520px) {
   main .container {
     padding: 20px 0;
@@ -73,6 +78,9 @@ section {
   main {
     margin: 0;
     padding: 25px;
+  }
+  .container h2 {
+    margin: 0;
   }
 }
 @media screen and (max-width: 380px) {

@@ -1,7 +1,21 @@
+import { useEffect } from "react";
 import { useState } from "react";
+import Confetti from "react-confetti";
 import Die from "./Die";
+
 export default function Main() {
   const [diceArray, setDiceArray] = useState(allNewDice());
+  const [gameWon, setGameWon] = useState(false);
+
+  useEffect(() => {
+    const allHeld = diceArray.every((die) => die.isHeld);
+    const firstValue = diceArray[0].value;
+    const allSameValue = diceArray.every((die) => die.value === firstValue);
+    if (allHeld && allSameValue) {
+      setGameWon(true);
+    }
+  }, [diceArray]);
+
   function allNewDice() {
     const newDiceArray = [];
     for (let i = 0; i < 10; i++) {
@@ -35,10 +49,12 @@ export default function Main() {
     });
   }
   function resetDice() {
+    setGameWon(false);
     setDiceArray(allNewDice());
   }
   return (
     <main>
+      {gameWon && <Confetti />}
       <div className="container">
         <div className="die_container">
           {diceArray.map((die) => {
@@ -61,11 +77,7 @@ export default function Main() {
               : rollDice
           }
         >
-          {diceArray.every((die) => {
-            return die.isHeld;
-          })
-            ? "Reset"
-            : "Roll"}
+          {gameWon ? "New Game" : "Roll"}
         </button>
       </div>
     </main>

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import Confetti from "react-confetti";
+import Guide from "./Guide";
 import Die from "./Die";
 
 export default function Main() {
@@ -56,6 +57,7 @@ export default function Main() {
     <main>
       {gameWon && <Confetti />}
       <div className="container">
+        <Guide />
         <div className="die_container">
           {diceArray.map((die) => {
             return (

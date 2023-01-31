@@ -21,6 +21,11 @@ main .container {
   align-items: center;
 }
 
+section {
+  text-align: center;
+  padding: 0 20px;
+}
+
 .die_container {
   display: flex;
   flex-wrap: wrap;
@@ -57,9 +62,19 @@ main .container {
   box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
 }
 
-@media screen and (max-width: 410px) {
+@media screen and (max-width: 520px) {
+  main {
+    height: 720px;
+  }
   main .container {
-    padding: 0;
+    padding: 20px 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  main {
+    margin: 0;
+    padding: 25px;
   }
 }
 @media screen and (max-width: 380px) {

@@ -9,28 +9,29 @@ export default function Main() {
   const [gameWon, setGameWon] = useState(false);
 
   const [bestRollCount, setBestRollCount] = useState(
-    localStorage.getItem("bestRollCount") || 50
+    () => localStorage.getItem("bestRollCount") || 50
   );
   const [rollCount, setRollCount] = useState(0);
 
   const [bestTime, setBestTime] = useState(
-    localStorage.getItem("bestTime") || 500
+    () => localStorage.getItem("bestTime") || 500
   );
-
   const [startCount, setStartCount] = useState(false);
+
   const [count, setCount] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
 
+  // run this effect whenever startCount changes and is true
   useEffect(() => {
     if (startCount) {
-      const newIntervalId = setInterval(() => {
+      const intervalId = setInterval(() => {
         setCount((prevCount) => prevCount + 1);
       }, 1000);
-
-      return () => clearInterval(newIntervalId);
+      return () => clearInterval(intervalId);
     }
   }, [startCount]);
 
+  // initialize the dice array
   function allNewDice() {
     const newDiceArray = [];
     for (let i = 0; i < 10; i++) {
@@ -43,6 +44,7 @@ export default function Main() {
     return newDiceArray;
   }
 
+  // change held property when a dice is clicked
   function changeHeld(dieId) {
     setDiceArray((prevArray) => {
       return prevArray.map((dieObj) => {
@@ -53,6 +55,8 @@ export default function Main() {
     });
   }
 
+  // set the dice array to a new array
+  // keep the die which is held and change all others
   function rollDice() {
     setDiceArray((prevArray) => {
       return prevArray.map((dieObj) => {
@@ -64,6 +68,7 @@ export default function Main() {
     setRollCount((prevCount) => prevCount + 1);
   }
 
+  // check for game win conditions whenever dice array changes
   useEffect(() => {
     const allHeld = diceArray.every((die) => die.isHeld);
     const firstValue = diceArray[0].value;
@@ -74,6 +79,7 @@ export default function Main() {
     }
   }, [diceArray]);
 
+  // check if game is won to set the best counts and roll counts
   useEffect(() => {
     if (gameWon) {
       if (rollCount < Number(bestRollCount)) {
@@ -87,6 +93,7 @@ export default function Main() {
     }
   }, [gameWon]);
 
+  // reset the game
   function resetDice() {
     setCount(0);
     setStartCount(false);
@@ -122,12 +129,9 @@ export default function Main() {
         <button
           className="roll_dice"
           onClick={(e) => {
+            // prevent running of onClick function defined for main
             e.stopPropagation();
-            diceArray.every((die) => {
-              return die.isHeld;
-            })
-              ? resetDice()
-              : rollDice();
+            gameWon ? resetDice() : rollDice();
           }}
         >
           {gameWon ? "New Game" : "Roll"}
